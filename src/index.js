@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./Public/Styles/index.css";
+import { Provider } from "react-redux";
 import Client from './Frontend/Client';
 import registerServiceWorker from './registerServiceWorker';
+import store from './Frontend/Store';
 
-ReactDOM.render(<Client />, document.getElementById('root'));
+const root = document.getElementById('root');
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Client />
+    </Provider>,
+    root);
+
 registerServiceWorker();
