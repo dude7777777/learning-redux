@@ -1,23 +1,30 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { UserListPresenter } from '../Presenters';
+import * as UserListActions from '../../Actions/UserActions';
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUser: () => { dispatch(UserListActions.fetchUser()); }
+    };
+}
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    };
+}
 
 class UserListContainer extends React.Component {
-    static defaultProps = {
-        user: {
-            name: 'John',
-            age: 2
-        }
-    };
-
     render() {
-        let user = { name: this.props.user.name, age: this.props.user.age }
-
         return(
             <UserListPresenter
-                user={user}
+                user={this.state.user}
             />
         );
     }
 }
 
-export default UserListContainer;
+const ConnectedUserListContainer = connect(mapStateToProps, mapDispatchToProps)(UserListContainer);
+
+export default ConnectedUserListContainer;
